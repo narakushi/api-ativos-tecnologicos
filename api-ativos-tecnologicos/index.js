@@ -5,7 +5,6 @@ const router = require("./routers/index");
 const tabelas = require("./database/tabelas");
 const conexao = require("./database/conexao.db");
 
-
 //acionando conxão com banco + criação das tabelas
 tabelas.init(conexao);
 

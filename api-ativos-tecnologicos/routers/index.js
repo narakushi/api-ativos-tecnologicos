@@ -1,4 +1,4 @@
-const organizacao = require("./organizacao.routes");
+const organizacao = require("./routes");
 
 module.exports = (app) => {
   app.use(organizacao);
