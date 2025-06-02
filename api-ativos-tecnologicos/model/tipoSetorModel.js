@@ -1,10 +1,10 @@
 const ExecuteQuery = require("../utils/executeQuery");
 
-class TipoAtorModel {
+class TipoSetorModel {
   read() {
-    const sql = `SELECT * FROM tipo_atores`;
+    const sql = `SELECT * from setores_economicos`;
     return ExecuteQuery.createPromise(sql);
   }
 }
 
-module.exports = new TipoAtorModel();
+module.exports = new TipoSetorModel();

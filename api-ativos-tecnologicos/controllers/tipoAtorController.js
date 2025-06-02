@@ -2,7 +2,7 @@ const TipoAtorModel = require("../model/tipoAtorModel");
 
 class TipoAtorController {
   async read(req, res) {
-    const tipoAtoresLista = TipoAtorModel.listar();
+    const tipoAtoresLista = TipoAtorModel.read();
     try {
       const tipoAtores = await tipoAtoresLista;
       return res.status(200).json(tipoAtores);

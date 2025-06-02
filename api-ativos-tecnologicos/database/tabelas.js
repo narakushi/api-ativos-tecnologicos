@@ -3,6 +3,8 @@ class Tabelas {
     this.conexao = conexao;
     this.criarTipoAtores();
     this.criarAtores();
+    this.criarSetores();
+    this.criarTipoSolucao();
   }
 
   //primeiro criar tabelas auxiliares
@@ -23,6 +25,37 @@ class Tabelas {
       }
       console.log("Tabela tipo_atores criada!");
     })
+  }
+
+  criarSetores() {
+    const sql = `
+      CREATE TABLE IF NOT EXISTS setores_economicos (
+      ID_Setor INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+      Nome_Setor ENUM("Agroalimentar", "Recursos Florestais", "Recursos Minerais")
+      );`
+
+    try {
+      this.conexao.query(sql);
+      console.log("Setores economicos criada");
+    }
+    catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  criarTipoSolucao() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS tipos_solucoes (
+    ID_Tipo_Solucao INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    Nome_Tipo_Solucao ENUM("Software", "Consultoria", "Hardware"));`
+
+    try {
+      this.conexao.query(sql);
+      console.log("Tabela tipo_solucoes criada");
+    }
+    catch (error) {
+      console.log("Ocorreu um erro na criação da tabela  tipo_solucoes");
+    }
   }
 
   criarAtores() {
