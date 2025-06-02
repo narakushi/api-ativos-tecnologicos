@@ -4,23 +4,7 @@ const TipoAtorController = require("../controllers/tipoAtorController");
 const AtorController = require("../controllers/atorController");
 
 //TipoAtores
-router.get("/tipo-atores", (req, res) => {
-  res.send(TipoAtorController.read());
-});
-
-router.post("/tipo-atores", (req, res) => {
-  res.send(TipoAtorController.create());
-});
-
-router.put("/tipo-ator/:id", (req, res) => {
-  const { id } = req.params;
-  res.send(TipoAtorController.update(id));
-})
-
-router.delete("/tipo-ator/:id", (req, res) => {
-  const { id } = req.params;
-  res.send(TipoAtorController.delete(id));
-})
+router.get("/tipo-atores", TipoAtorController.read); //tabela auxiliar só precisa de get. 
 
 // Organizações
 router.get("/organizacoes", (req, res) => {

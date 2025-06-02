@@ -11,7 +11,7 @@ class Tabelas {
       CREATE TABLE IF NOT EXISTS tipo_atores(
       ID_Tipo_Ator INTEGER AUTO_INCREMENT NOT NULL, 
       Nome_Tipo_Ator ENUM("Empresa", "Startup", "ICT (UNEB, IF BAIANO, FATEC), Governo Municipal, Governo Estadual, Governo Federal", 
-      "Ambiente de inovação","Entidade de Apoio (Sebrae, SENAI,Associações), Investidor",
+      "Ambiente de inovação","Entidade de Apoio (Sebrae, SENAI,Associações)", "Investidor",
       "Mentor"),
       PRIMARY KEY (ID_Tipo_Ator)
     ); `;
@@ -45,14 +45,14 @@ class Tabelas {
 
     //definindo chave estrangeira de atores_ecossistema
     try {
-      this.conexao.query(this.conexao.query("ALTER TABLE atores_ecossistema ADD CONSTRAINT fk_ID_Tipo_Ator FOREIGN KEY (ID_Tipo_Ator) REFERENCES tipo_atores(ID_Tipo_Ator);"));
+      this.conexao.query("ALTER TABLE atores_ecossistema ADD CONSTRAINT fk_ID_Tipo_Ator FOREIGN KEY (ID_Tipo_Ator) REFERENCES tipo_atores(ID_Tipo_Ator);");
       console.log("Chave estrangeira definida para atores_ecossistema!");
     }
     catch (error) {
       console.log("Erro ao definir a chave estrangeira para atores_ecossistema");
     }
-
   }
+
 }
 
 module.exports = new Tabelas();

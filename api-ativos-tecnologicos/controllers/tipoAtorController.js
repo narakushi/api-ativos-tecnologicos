@@ -1,15 +1,14 @@
+const TipoAtorModel = require("../model/tipoAtorModel");
+
 class TipoAtorController {
-  read() {
-    return "Buscando tipo ator."
-  }
-  create() {
-    return "Criando tipo ator."
-  }
-  update(id) {
-    return `Atualizando o tipo ator numero ${id}`
-  }
-  delete(id) {
-    return `Deletando o tipo ator numero ${id}`
+  async read(req, res) {
+    const tipoAtoresLista = TipoAtorModel.listar();
+    try {
+      const tipoAtores = await tipoAtoresLista;
+      return res.status(200).json(tipoAtores);
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
   }
 }
 

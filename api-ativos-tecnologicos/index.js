@@ -5,11 +5,14 @@ const router = require("./routers/index");
 const tabelas = require("./database/tabelas");
 const conexao = require("./database/conexao.db");
 
-//acionando conxão com banco + criação das tabelas
-tabelas.init(conexao);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //acionando rotas
 router(app);
+
+//acionando conxão com banco + criação das tabelas
+tabelas.init(conexao);
 
 app.listen(port, (error) => {
   if (error) {

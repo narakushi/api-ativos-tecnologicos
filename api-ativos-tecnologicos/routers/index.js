@@ -1,5 +1,5 @@
-const organizacao = require("./routes");
+const routes = require("./routes");
 
 module.exports = (app) => {
-  app.use(organizacao);
+  app.use(routes);
 }
