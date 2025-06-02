@@ -1,19 +1,52 @@
+const AtorModel = require("../model/atorModel");
+
 class AtorController {
-
-  read() {
-    return "Buscando ator"
+  async read(req, res) {
+    const getAtor = AtorModel.read();
+    try {
+      const atorEco = await getAtor;
+      return res.status(200).json(atorEco);
+    }
+    catch (error) {
+      return res.status(400).json(error.message);
+    }
   }
 
-  create() {
-    return "Criando ator"
+  async create(req, res) {
+    const newAtor = req.query;
+    const createAtor = AtorModel.create(newAtor);
+    try {
+      const ator = await createAtor;
+      return res.status(201).json(ator);
+    }
+    catch (error) {
+      return res.status(400).json(error.message);
+    }
   }
 
-  update(id) {
-    return `Atualizando o ator de id ${id}`
+  async update(req, res) {
+    const { id } = req.params;
+    const updatedAtor = req.query;
+    const upAtor = AtorModel.update(updatedAtor, id);
+    try {
+      const ator = await upAtor
+      return res.status(200).json(ator);
+    }
+    catch (error) {
+      return res.status(400).json(error.message);
+    }
   }
 
-  delete(id) {
-    return `Deletando o ator de id ${id}`
+  async delete(req, res) {
+    const { id } = req.params;
+    const deleteAtor = AtorModel.delete(id)
+    try {
+      const ator = await deleteAtor;
+      return res.status(200).json(ator)
+    }
+    catch (error) {
+      return res.status(400).json(error.message);
+    }
   }
 }
 
