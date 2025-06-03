@@ -2,7 +2,7 @@ const ExecuteQuery = require("../utils/executeQuery");
 
 class TipoAtorModel {
   read() {
-    const sql = `SELECT * FROM tipo_atores`;
+    const sql = `SELECT * FROM tipos_atores`;
     return ExecuteQuery.createPromise(sql);
   }
 }
