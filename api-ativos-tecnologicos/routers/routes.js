@@ -7,6 +7,7 @@ const TipoSolucaoController = require("../controllers/tipoSolucaoController");
 
 // AtoresEcossistema
 router.get("/atores", AtorController.read);
+router.get("/atores/:id", AtorController.readOne);
 router.post("/atores", AtorController.create);
 router.put("/atores/:id", AtorController.update);
 router.delete("/atores/:id", AtorController.delete);

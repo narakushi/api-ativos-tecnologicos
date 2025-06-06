@@ -12,8 +12,20 @@ class AtorController {
     }
   }
 
+  async readOne(req, res) {
+    const { id } = req.params;
+    const atorOne = AtorModel.readOne(id);
+    try {
+      const ator = await atorOne;
+      return res.status(200).json(ator);
+    }
+    catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
   async create(req, res) {
-    const newAtor = req.query;
+    const newAtor = req.body;
     const createAtor = AtorModel.create(newAtor);
     try {
       const ator = await createAtor;
@@ -26,7 +38,7 @@ class AtorController {
 
   async update(req, res) {
     const { id } = req.params;
-    const updatedAtor = req.query;
+    const updatedAtor = req.body;
     const upAtor = AtorModel.update(updatedAtor, id);
     try {
       const ator = await upAtor

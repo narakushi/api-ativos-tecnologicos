@@ -6,6 +6,11 @@ class AtorModel {
     return ExecuteQuery.createPromise(sql);
   }
 
+  readOne(id) {
+    const sql = `SELECT * from atores_ecossistema WHERE ID_Ator = ?`;
+    return ExecuteQuery.createPromise(sql, id);
+  }
+
   create(newAtor) {
     const sql = `INSERT INTO atores_ecossistema SET ?`;
     return ExecuteQuery.createPromise(sql, newAtor);

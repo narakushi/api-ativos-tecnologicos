@@ -14,9 +14,9 @@ class Tabelas {
       ID_Tipo_Ator INTEGER AUTO_INCREMENT NOT NULL, 
       Nome_Tipo_Ator ENUM("Empresa", "Startup", "ICT (UNEB, IF BAIANO, FATEC)", "Governo Municipal", "Governo Estadual", "Governo Federal", 
       "Ambiente de inovação","Entidade de Apoio (Sebrae, SENAI, Associações)", "Investidor",
-      "Mentor"),
-      PRIMARY KEY (ID_Tipo_Ator)
-    ); `;
+      "Mentor") DEFAULT "Empresa",
+      PRIMARY KEY (ID_Tipo_Ator)); 
+      `;
 
     this.conexao.query(sql, (error) => {
       if (error) {
@@ -32,8 +32,8 @@ class Tabelas {
       CREATE TABLE IF NOT EXISTS setores_economicos (
       ID_Setor INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
       Nome_Setor ENUM("Agroalimentar", "Recursos Florestais", "Recursos Minerais", "TI e Automação",
-       "Comércio", "Serviços", "Indústria Geral", "Educação", "Saúde")
-      );`
+       "Comércio", "Serviços", "Indústria Geral", "Educação", "Saúde") DEFAULT "Agroalimentar"
+       );`
 
     this.conexao.query(sql, (error) => {
       if (error) {
@@ -50,7 +50,8 @@ class Tabelas {
     ID_Tipo_Solucao INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome_Tipo_Solucao ENUM("Software", "Aplicativo Móvel", "Plataforma SaaS", "Hardware", "Consultoria Tecnológica", "Capacitação Técnica", 
     "Produto Físico Inovador", "Processo Inovador", 
-    "Propriedade Intelectual (Patente, Marca, Software Registrado)"));`
+    "Propriedade Intelectual (Patente, Marca, Software Registrado)") DEFAULT "Software");
+    `
 
     this.conexao.query(sql, (error) => {
       if (error) {
@@ -63,7 +64,7 @@ class Tabelas {
 
   criarAtores() {
     const sql = `
-      CREATE TABLE IF NOT EXISTS atores_ecossistema (
+    CREATE TABLE IF NOT EXISTS atores_ecossistema (
     ID_Ator INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Nome_Oficial VARCHAR (255) NOT NULL,
     Nome_Fantasia VARCHAR (255),
@@ -72,8 +73,9 @@ class Tabelas {
         FOREIGN KEY (Tipo_Ator) REFERENCES tipos_atores (ID_Tipo_Ator),
     Setor_Principal_Atuacao INT,
         FOREIGN KEY (Setor_Principal_Atuacao) REFERENCES Setores_Economicos (ID_Setor),
-    Setores_Secundarios_Atuacao VARCHAR (255) NOT NULL,
-    Porte ENUM("Micro", "Pequena", "Média", "Grande", "Startup", "Sem Fins Lucrativos") NOT NULL,
+    Setores_Secundarios_Atuacao ENUM("Agroalimentar", "Recursos Florestais", "Recursos Minerais", "TI e Automação",
+       "Comércio", "Serviços", "Indústria Geral", "Educação", "Saúde"),
+    Porte ENUM("Micro", "Pequena", "Média", "Grande", "Startup", "Sem Fins Lucrativos") DEFAULT "Micro",
     Descricao_Atividades VARCHAR (255) NOT NULL,
     Ano_Fundacao INT NOT NULL,
     Endereco_Logradouro VARCHAR (255) NOT NULL,
@@ -91,8 +93,8 @@ class Tabelas {
     Cargo_Contato_Principal VARCHAR (255) NOT NULL,
     Email_Contato_Principal VARCHAR (255) NOT NULL,
     Telefone_Contato_Principal VARCHAR (30) NOT NULL,
-    Data_Cadastro_BD DATETIME,
-    Status_Ator ENUM("Ativo", "Inativo", "Prospect"),
+    Data_Cadastro_BD TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    Status_Ator ENUM("Ativo", "Inativo", "Prospect") DEFAULT "Ativo",
     Origem_Cadastro VARCHAR (255) NOT NULL,
     Observacoes_Gerais VARCHAR (255));
     `
@@ -103,17 +105,6 @@ class Tabelas {
       }
       console.log("Tabela de atores criada.");
     })
-
-    //definindo chave estrangeira de atores_ecossistema
-
-    this.conexao.query("ALTER TABLE atores_ecossistema ADD CONSTRAINT fk_ID_Tipo_Ator FOREIGN KEY (Tipo_Ator) REFERENCES tipos_atores(ID_Tipo_Ator);", (error) => {
-      if (error) {
-        console.log(error.message);
-        return
-      }
-      console.log("Chave estrangeira definida para atores ecossistema")
-    });
-
   }
 
 }
