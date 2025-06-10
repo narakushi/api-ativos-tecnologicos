@@ -5,6 +5,7 @@ class Tabelas {
     this.criarSetores();
     this.criarTipoSolucao();
     this.criarAtores();
+    this.criarNecessidades();
   }
 
   //primeiro criar tabelas auxiliares
@@ -105,6 +106,35 @@ class Tabelas {
       }
       console.log("Tabela de atores criada.");
     })
+  }
+
+  criarNecessidades() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS Necessidades_Desafios_Tecnologicos (
+    ID_Necessidade INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    ID_Ator_Demandante INT,
+    Titulo_Necessidade_Desafio VARCHAR (255) NOT NULL,
+    Descricao_Detalhada_Necessidade VARCHAR (255) NOT NULL,
+    Setor_Impactado_Internamente INT,
+        FOREIGN KEY (Setor_Impactado_Internamente) REFERENCES setores_economicos (ID_Setor),
+    Tipo_Solucao_Buscada INT,
+        FOREIGN KEY (Tipo_Solucao_Buscada) REFERENCES tipos_solucoes (ID_Tipo_Solucao),
+    Tecnologias_Desejadas VARCHAR (255),
+    Resultados_Esperados VARCHAR (255) NOT NULL,
+    Urgencia_Necessidade ENUM("Baixa (até 1 ano)", "Média (até 6 meses)", "Alta (até 3 meses)", "Crítica (até 1 mês)") NOT NULL,
+    Disposicao_Investimento ENUM("Buscando Parceria", "Orçamento Definido (faixa)", "Aberto a Propostas", "Buscando Fomento"),
+    Status_Necessidade ENUM("Aberta", "Em Prospecção de Soluções", "Solução em Desenvolvimento", "Atendida", "Cancelada") NOT NULL,
+    Palavras_Chave_Necessidade VARCHAR (255) NOT NULL,
+    Data_Registro_Necessidade TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    Data_Ultima_Atualizacao_Status TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP);
+    `;
+    this.conexao.query(sql, (error) => {
+      if (error) {
+        console.log("Erro na criação da tabela necessidades");
+        return;
+      }
+      console.log("Operação bem sucedida na criação da tabela necessidades");
+    });
   }
 
 }
