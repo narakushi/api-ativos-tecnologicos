@@ -6,6 +6,7 @@ class Tabelas {
     this.criarTipoSolucao();
     this.criarAtores();
     this.criarNecessidades();
+    this.criarSolucao();
   }
 
   //primeiro criar tabelas auxiliares
@@ -134,6 +135,37 @@ class Tabelas {
         return;
       }
       console.log("Operação bem sucedida na criação da tabela necessidades");
+    });
+  }
+
+  criarSolucao() {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS Solucoes_Servicos_Ofertados (
+    ID_Solucao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    ID_Ator_Ofertante INT,
+    Nome_Solucao_Servico VARCHAR (255) NOT NULL,
+    Descricao_Detalhada_Solucao VARCHAR (255),
+    Tipo_Solucao INT,
+        FOREIGN KEY (Tipo_Solucao) REFERENCES tipos_solucoes (ID_Tipo_Solucao),
+    Setores_Alvo_Solucao INT,
+		FOREIGN KEY (Setores_Alvo_Solucao) REFERENCES setores_economicos (ID_Setor),
+    Tecnologias_Embarcadas VARCHAR (255) NOT NULL,
+    Nivel_Maturidade_Solucao ENUM("Ideia/Conceito", "Protótipo Funcional (MVP)", "Produto Lançado", "Em Escalação") NOT NULL,
+    Diferenciais_Competitivos VARCHAR (255) NOT NULL,
+    Modelo_Comercializacao ENUM("Venda Única", "Assinatura", "Licenciamento", "Consultoria por Hora/Projeto"),
+    Website_Solucao VARCHAR (255),
+    Cases_Sucesso_Aplicacao VARCHAR (255),
+    Palavras_Chave_Solucao VARCHAR (255) NOT NULL,
+    Data_Registro_Solucao TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+    )
+    `
+
+    this.conexao.query(sql, (error) => {
+      if (error) {
+        console.log("Erro na criação da tabela soluções_servicos_ofertados");
+        return;
+      }
+      console.log("Operação bem sucedida na criação da tabela solução ou serviços");
     });
   }
 

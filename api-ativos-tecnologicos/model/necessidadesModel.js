@@ -27,7 +27,7 @@ class NecessidadesModel {
   }
 
   delete(id) {
-    const sql = `DELETE necessidades_desafios_tecnologicos WHERE ID ID_Necessidade = ?`;
+    const sql = `DELETE FROM necessidades_desafios_tecnologicos WHERE ID_Necessidade = ?`;
     return ExecuteQuery.createPromise(sql, id);
   }
 }
